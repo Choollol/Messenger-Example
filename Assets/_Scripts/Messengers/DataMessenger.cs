@@ -20,12 +20,12 @@ public class DataMessenger : MonoBehaviour
         bools = new Dictionary<string, bool>();
         vector3s = new Dictionary<string, Vector3>();
     }
-    public static float GetFloat(string key)
+    public static float GetFloat(string key, float defaultValue=0)
     {
         if (!floats.TryGetValue(key, out float v))
         {
-            floats[key] = 0;
-            return 0;
+            floats[key] = defaultValue;
+            return defaultValue;
         }
         return v;
     }
@@ -33,12 +33,12 @@ public class DataMessenger : MonoBehaviour
     {
         floats[key] = value;
     }
-    public static int GetInt(string key)
+    public static int GetInt(string key, int defaultValue=0)
     {
         if (!ints.TryGetValue(key, out int v))
         {
-            ints[key] = 0;
-            return 0;
+            ints[key] = defaultValue;
+            return defaultValue;
         }
         return v;
     }
@@ -46,12 +46,12 @@ public class DataMessenger : MonoBehaviour
     {
         ints[key] = value;
     }
-    public static string GetString(string key)
+    public static string GetString(string key, string defaultValue="")
     {
         if (!strings.TryGetValue(key, out string v))
         {
-            strings[key] = string.Empty;
-            return string.Empty;
+            strings[key] = defaultValue;
+            return defaultValue;
         }
         return v;
     }
@@ -59,12 +59,12 @@ public class DataMessenger : MonoBehaviour
     {
         strings[key] = value;
     }
-    public static bool GetBool(string key)
+    public static bool GetBool(string key, bool defaultValue=false)
     {
         if (!bools.TryGetValue(key, out bool v))
         {
-            bools[key] = false;
-            return false;
+            bools[key] = defaultValue;
+            return defaultValue;
         }
         return v;
     }
@@ -72,12 +72,12 @@ public class DataMessenger : MonoBehaviour
     {
         bools[key] = value;
     }
-    public static Vector3 GetVector3(string key)
+    public static Vector3 GetVector3(string key, Vector3 defaultValue=new Vector3())
     {
         if (!vector3s.TryGetValue(key, out Vector3 v))
         {
-            vector3s[key] = Vector3.zero;
-            return Vector3.zero;
+            vector3s[key] = defaultValue;
+            return defaultValue;
         }
         return v;
     }
