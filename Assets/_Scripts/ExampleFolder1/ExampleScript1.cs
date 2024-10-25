@@ -14,7 +14,10 @@ public class ExampleScript1 : MonoBehaviour
     }
     private void SomeFunction()
     {
-        Debug.Log("Function Called");
+        // Previous example
+        //Debug.Log("Function Called");
+
+        Debug.Log(DataMessenger.GetString("StringToPrint"));
     }
 }
 

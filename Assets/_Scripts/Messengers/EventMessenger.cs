@@ -44,7 +44,7 @@ public class EventMessenger : MonoBehaviour
     /// <summary>
     /// Associates a function with an event. Put this in OnEnable.
     /// </summary>
-    /// <param name="eventName">The name of the event to be listened for. The same name will be used when triggereing the event.</param>
+    /// <param name="eventName">The name of the event to be listened for. The same name will be used when triggering the event.</param>
     /// <param name="listener">The function to be called when the event is triggered.</param>
     /// <returns></returns>
     public static void StartListening(string eventName, UnityAction listener)

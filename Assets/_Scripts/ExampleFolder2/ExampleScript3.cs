@@ -14,7 +14,7 @@ public class ExampleScript3 : MonoBehaviour
     }
     private void AnotherFunction()
     {
-        transform.position += transform.forward;
+        transform.position += new Vector3(1, 0);
     }
 }
 

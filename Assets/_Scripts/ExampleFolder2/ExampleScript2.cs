@@ -6,6 +6,10 @@ public class ExampleScript2 : MonoBehaviour
 {
     private void Start()
     {
+        DataMessenger.SetFloat("SomeFloat", 1.5f);
+
+        DataMessenger.SetString("StringToPrint", "Hello");
+
         EventMessenger.TriggerEvent("EventName");
     }
 }
