@@ -20,8 +20,9 @@ public class DataMessenger : MonoBehaviour
         bools = new Dictionary<string, bool>();
         vector3s = new Dictionary<string, Vector3>();
     }
-    public static float GetFloat(string key, float defaultValue=0)
+    public static float GetFloat(string key)
     {
+        float defaultValue = 0;
         if (!floats.TryGetValue(key, out float v))
         {
             floats[key] = defaultValue;
@@ -33,8 +34,9 @@ public class DataMessenger : MonoBehaviour
     {
         floats[key] = value;
     }
-    public static int GetInt(string key, int defaultValue=0)
+    public static int GetInt(string key)
     {
+        int defaultValue = 0;
         if (!ints.TryGetValue(key, out int v))
         {
             ints[key] = defaultValue;
@@ -46,8 +48,9 @@ public class DataMessenger : MonoBehaviour
     {
         ints[key] = value;
     }
-    public static string GetString(string key, string defaultValue="")
+    public static string GetString(string key)
     {
+        string defaultValue = string.Empty;
         if (!strings.TryGetValue(key, out string v))
         {
             strings[key] = defaultValue;
@@ -59,8 +62,9 @@ public class DataMessenger : MonoBehaviour
     {
         strings[key] = value;
     }
-    public static bool GetBool(string key, bool defaultValue=false)
+    public static bool GetBool(string key)
     {
+        bool defaultValue = false;
         if (!bools.TryGetValue(key, out bool v))
         {
             bools[key] = defaultValue;
@@ -72,8 +76,9 @@ public class DataMessenger : MonoBehaviour
     {
         bools[key] = value;
     }
-    public static Vector3 GetVector3(string key, Vector3 defaultValue=new Vector3())
+    public static Vector3 GetVector3(string key)
     {
+        Vector3 defaultValue = Vector3.zero;
         if (!vector3s.TryGetValue(key, out Vector3 v))
         {
             vector3s[key] = defaultValue;

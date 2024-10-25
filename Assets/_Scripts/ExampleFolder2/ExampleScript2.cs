@@ -10,6 +10,8 @@ public class ExampleScript2 : MonoBehaviour
 
         DataMessenger.SetString("StringToPrint", "Hello");
 
+        DataMessenger.GetInt("SomeInt");
+
         EventMessenger.TriggerEvent("EventName");
     }
 }
