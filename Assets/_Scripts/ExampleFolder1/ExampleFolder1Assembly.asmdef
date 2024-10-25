@@ -1,0 +1,16 @@
+{
+    "name": "ExampleFolder1Assembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a51cd9c43a8c8954daa17ab6f652e78f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
