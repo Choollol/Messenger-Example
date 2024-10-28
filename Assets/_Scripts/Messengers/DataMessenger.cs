@@ -22,11 +22,10 @@ public class DataMessenger : MonoBehaviour
     }
     public static float GetFloat(string key)
     {
-        float defaultValue = 0;
         if (!floats.TryGetValue(key, out float v))
         {
-            floats[key] = defaultValue;
-            return defaultValue;
+            floats[key] = 0;
+            return 0;
         }
         return v;
     }
@@ -34,13 +33,30 @@ public class DataMessenger : MonoBehaviour
     {
         floats[key] = value;
     }
+    /// <summary>
+    /// Performs an operation on the float associated with the given key with the value given. The operator is + by default.
+    /// </summary>
+    public static void OperateFloat(string key, float value, char op = '+')
+    {
+        switch (op)
+        {
+            case '+':
+                floats[key] += value;
+                break;
+            case '*':
+                floats[key] *= value;
+                break;
+            case '/':
+                floats[key] /= value;
+                break;
+        }
+    }
     public static int GetInt(string key)
     {
-        int defaultValue = 0;
         if (!ints.TryGetValue(key, out int v))
         {
-            ints[key] = defaultValue;
-            return defaultValue;
+            ints[key] = 0;
+            return 0;
         }
         return v;
     }
@@ -48,13 +64,30 @@ public class DataMessenger : MonoBehaviour
     {
         ints[key] = value;
     }
+    /// <summary>
+    /// Performs an operation on the int associated with the given key with the value given. The operator is + by default.
+    /// </summary>
+    public static void OperateInt(string key, int value, char op = '+')
+    {
+        switch (op)
+        {
+            case '+':
+                ints[key] += value;
+                break;
+            case '*':
+                ints[key] *= value;
+                break;
+            case '/':
+                ints[key] /= value;
+                break;
+        }
+    }
     public static string GetString(string key)
     {
-        string defaultValue = string.Empty;
         if (!strings.TryGetValue(key, out string v))
         {
-            strings[key] = defaultValue;
-            return defaultValue;
+            strings[key] = string.Empty;
+            return string.Empty;
         }
         return v;
     }
@@ -64,11 +97,10 @@ public class DataMessenger : MonoBehaviour
     }
     public static bool GetBool(string key)
     {
-        bool defaultValue = false;
         if (!bools.TryGetValue(key, out bool v))
         {
-            bools[key] = defaultValue;
-            return defaultValue;
+            bools[key] = false;
+            return false;
         }
         return v;
     }
@@ -78,11 +110,10 @@ public class DataMessenger : MonoBehaviour
     }
     public static Vector3 GetVector3(string key)
     {
-        Vector3 defaultValue = Vector3.zero;
         if (!vector3s.TryGetValue(key, out Vector3 v))
         {
-            vector3s[key] = defaultValue;
-            return defaultValue;
+            vector3s[key] = Vector3.zero;
+            return Vector3.zero;
         }
         return v;
     }
