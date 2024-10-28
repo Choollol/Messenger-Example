@@ -36,7 +36,7 @@ public class DataMessenger : MonoBehaviour
     /// <summary>
     /// Performs an operation on the float associated with the given key with the value given. The operator is + by default.
     /// </summary>
-    public static void OperateFloat(string key, float value, char op = '+')
+    public static float OperateFloat(string key, float value, char op = '+')
     {
         switch (op)
         {
@@ -50,6 +50,7 @@ public class DataMessenger : MonoBehaviour
                 floats[key] /= value;
                 break;
         }
+        return floats[key];
     }
     public static int GetInt(string key)
     {
@@ -67,7 +68,7 @@ public class DataMessenger : MonoBehaviour
     /// <summary>
     /// Performs an operation on the int associated with the given key with the value given. The operator is + by default.
     /// </summary>
-    public static void OperateInt(string key, int value, char op = '+')
+    public static int OperateInt(string key, int value, char op = '+')
     {
         switch (op)
         {
@@ -81,6 +82,7 @@ public class DataMessenger : MonoBehaviour
                 ints[key] /= value;
                 break;
         }
+        return ints[key];
     }
     public static string GetString(string key)
     {
