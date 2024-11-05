@@ -12,6 +12,10 @@ public class ExampleScript2 : MonoBehaviour
 
         DataMessenger.GetInt("SomeInt");
 
+        DataMessenger.OperateInt("SomeInt", 1);
+
+        DataMessenger.OperateFloat("SomeFloat", DataMessenger.OperateFloat("SomeFloat", 2), '*');
+
         EventMessenger.TriggerEvent("EventName");
     }
 }
