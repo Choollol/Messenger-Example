@@ -9,14 +9,23 @@ public class DataMessenger : MonoBehaviour
     private static Dictionary<string, float> floats;
     private static Dictionary<string, int> ints;
     private static Dictionary<string, string> strings;
+    private static Dictionary<string, List<string>> stringLists;
     private static Dictionary<string, bool> bools;
     private static Dictionary<string, Vector3> vector3s;
+
+    private static int defaultIntValue = 0;
+    private static float defaultFloatValue = 0;
+    private static bool defaultBoolValue = false;
+    private static string defaultStringValue = string.Empty;
+    private static List<string> defaultStringListValue = new List<string>();
+    private static Vector3 defaultVector3Value = Vector3.zero;
 
     private void Awake()
     {
         floats = new Dictionary<string, float>();
         ints = new Dictionary<string, int>();
         strings = new Dictionary<string, string>();
+        stringLists = new Dictionary<string, List<string>>();
         bools = new Dictionary<string, bool>();
         vector3s = new Dictionary<string, Vector3>();
     }
@@ -24,8 +33,8 @@ public class DataMessenger : MonoBehaviour
     {
         if (!floats.TryGetValue(key, out float v))
         {
-            floats[key] = 0;
-            return 0;
+            floats[key] = defaultFloatValue;
+            return floats[key];
         }
         return v;
     }
@@ -41,13 +50,13 @@ public class DataMessenger : MonoBehaviour
         switch (op)
         {
             case '+':
-                floats[key] += value;
+                SetFloat(key, GetFloat(key) + value);
                 break;
             case '*':
-                floats[key] *= value;
+                SetFloat(key, GetFloat(key) * value);
                 break;
             case '/':
-                floats[key] /= value;
+                SetFloat(key, GetFloat(key) / value);
                 break;
         }
         return floats[key];
@@ -56,8 +65,8 @@ public class DataMessenger : MonoBehaviour
     {
         if (!ints.TryGetValue(key, out int v))
         {
-            ints[key] = 0;
-            return 0;
+            ints[key] = defaultIntValue;
+            return ints[key];
         }
         return v;
     }
@@ -73,23 +82,24 @@ public class DataMessenger : MonoBehaviour
         switch (op)
         {
             case '+':
-                ints[key] += value;
+                SetInt(key, GetInt(key) + value);
                 break;
             case '*':
-                ints[key] *= value;
+                SetInt(key, GetInt(key) * value);
                 break;
             case '/':
-                ints[key] /= value;
+                SetInt(key, GetInt(key) / value);
                 break;
         }
         return ints[key];
     }
+
     public static string GetString(string key)
     {
         if (!strings.TryGetValue(key, out string v))
         {
-            strings[key] = string.Empty;
-            return string.Empty;
+            strings[key] = defaultStringValue;
+            return strings[key];
         }
         return v;
     }
@@ -97,12 +107,25 @@ public class DataMessenger : MonoBehaviour
     {
         strings[key] = value;
     }
+    public static List<string> GetStringList(string key)
+    {
+        if (!stringLists.TryGetValue(key, out List<string> v))
+        {
+            stringLists[key] = defaultStringListValue;
+            return stringLists[key];
+        }
+        return v;
+    }
+    public static void SetStringList(string key, List<string> value)
+    {
+        stringLists[key] = value;
+    }
     public static bool GetBool(string key)
     {
         if (!bools.TryGetValue(key, out bool v))
         {
-            bools[key] = false;
-            return false;
+            bools[key] = defaultBoolValue;
+            return bools[key];
         }
         return v;
     }
@@ -114,8 +137,8 @@ public class DataMessenger : MonoBehaviour
     {
         if (!vector3s.TryGetValue(key, out Vector3 v))
         {
-            vector3s[key] = Vector3.zero;
-            return Vector3.zero;
+            vector3s[key] = defaultVector3Value;
+            return vector3s[key];
         }
         return v;
     }
