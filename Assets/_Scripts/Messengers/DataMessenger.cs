@@ -75,7 +75,7 @@ public class DataMessenger : MonoBehaviour
         ints[key] = value;
     }
     /// <summary>
-    /// Performs an operation on the int associated with the given key with the value given. The operator is + by default.
+    /// Performs an operation on the int associated with the given key with the int given. The operator is + by default.
     /// </summary>
     public static int OperateInt(string key, int value, char op = '+')
     {
@@ -89,6 +89,26 @@ public class DataMessenger : MonoBehaviour
                 break;
             case '/':
                 SetInt(key, GetInt(key) / value);
+                break;
+        }
+        return ints[key];
+    }
+
+    /// <summary>
+    /// Performs an operation on the int associated with the given key with the float given. The operator is + by default.
+    /// </summary>
+    public static int OperateInt(string key, float value, char op = '+')
+    {
+        switch (op)
+        {
+            case '+':
+                SetInt(key, (int)(GetInt(key) + value));
+                break;
+            case '*':
+                SetInt(key, (int)(GetInt(key) * value));
+                break;
+            case '/':
+                SetInt(key, (int)(GetInt(key) / value));
                 break;
         }
         return ints[key];
