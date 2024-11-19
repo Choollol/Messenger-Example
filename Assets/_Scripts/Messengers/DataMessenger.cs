@@ -12,6 +12,7 @@ public class DataMessenger : MonoBehaviour
     private static Dictionary<string, List<string>> stringLists;
     private static Dictionary<string, bool> bools;
     private static Dictionary<string, Vector3> vector3s;
+    private static Dictionary<string, Quaternion> quaternions;
 
     private static int defaultIntValue = 0;
     private static float defaultFloatValue = 0;
@@ -28,6 +29,7 @@ public class DataMessenger : MonoBehaviour
         stringLists = new Dictionary<string, List<string>>();
         bools = new Dictionary<string, bool>();
         vector3s = new Dictionary<string, Vector3>();
+        quaternions = new Dictionary<string, Quaternion>();
     }
     public static float GetFloat(string key)
     {
@@ -165,5 +167,18 @@ public class DataMessenger : MonoBehaviour
     public static void SetVector3(string key, Vector3 value)
     {
         vector3s[key] = value;
+    }
+    public static Quaternion GetQuaternion(string key)
+    {
+        if (!quaternions.TryGetValue(key, out Quaternion v))
+        {
+            quaternions[key] = Quaternion.identity;
+            return quaternions[key];
+        }
+        return v;
+    }
+    public static void SetQuaternion(string key, Quaternion value)
+    {
+        quaternions[key] = value;
     }
 }
