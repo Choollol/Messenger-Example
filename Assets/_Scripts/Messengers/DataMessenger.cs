@@ -97,20 +97,22 @@ public class DataMessenger : MonoBehaviour
     }
 
     /// <summary>
-    /// Performs an operation on the int associated with the given key with the float given. The operator is + by default.
+    /// Performs an operation on the int associated with the given key with the float given. 
     /// </summary>
-    public static int OperateInt(string key, float value, char op = '+')
+    /// <param name="op">The operator is + by default.</param>
+    /// <param name="doRound">Truncates instead of rounds by default.</param>
+    public static int OperateInt(string key, float value, char op = '+', bool doRound = false)
     {
         switch (op)
         {
             case '+':
-                SetInt(key, (int)(GetInt(key) + value));
+                SetInt(key, (int)(GetInt(key) + value + (doRound ? 0.5f : 0)));
                 break;
             case '*':
-                SetInt(key, (int)(GetInt(key) * value));
+                SetInt(key, (int)(GetInt(key) * value + (doRound ? 0.5f : 0)));
                 break;
             case '/':
-                SetInt(key, (int)(GetInt(key) / value));
+                SetInt(key, (int)(GetInt(key) / value + (doRound ? 0.5f : 0)));
                 break;
         }
         return ints[key];
