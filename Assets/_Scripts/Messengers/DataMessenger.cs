@@ -144,6 +144,14 @@ public class DataMessenger : MonoBehaviour
     {
         stringLists[key] = value;
     }
+    public static void AddStringToList(string key, string value)
+    {
+        if (!stringLists.TryGetValue(key, out List<string> v))
+        {
+            stringLists[key] = defaultStringListValue;
+        }
+        stringLists[key].Add(value);
+    }
     public static bool GetBool(string key)
     {
         if (!bools.TryGetValue(key, out bool v))
