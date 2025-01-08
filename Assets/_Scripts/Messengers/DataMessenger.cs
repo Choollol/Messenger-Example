@@ -13,6 +13,8 @@ public class DataMessenger : MonoBehaviour
     private static Dictionary<string, bool> bools;
     private static Dictionary<string, Vector3> vector3s;
     private static Dictionary<string, Quaternion> quaternions;
+    private static Dictionary<string, GameObject> gameObjects;
+    private static Dictionary<string, ScriptableObject> scriptableObjects;
 
     private static int defaultIntValue = 0;
     private static float defaultFloatValue = 0;
@@ -20,6 +22,9 @@ public class DataMessenger : MonoBehaviour
     private static string defaultStringValue = string.Empty;
     private static List<string> defaultStringListValue = new List<string>();
     private static Vector3 defaultVector3Value = Vector3.zero;
+    private static Quaternion defaultQuaternionValue = Quaternion.identity;
+    private static GameObject defaultGameObjectValue = null;
+    private static ScriptableObject defaultScriptableObjectValue = null;
 
     private void Awake()
     {
@@ -30,13 +35,15 @@ public class DataMessenger : MonoBehaviour
         bools = new Dictionary<string, bool>();
         vector3s = new Dictionary<string, Vector3>();
         quaternions = new Dictionary<string, Quaternion>();
+        gameObjects = new Dictionary<string, GameObject>();
+        scriptableObjects = new Dictionary<string, ScriptableObject>();
     }
     public static float GetFloat(string key)
     {
         if (!floats.TryGetValue(key, out float v))
         {
             floats[key] = defaultFloatValue;
-            return floats[key];
+            return defaultFloatValue;
         }
         return v;
     }
@@ -68,7 +75,7 @@ public class DataMessenger : MonoBehaviour
         if (!ints.TryGetValue(key, out int v))
         {
             ints[key] = defaultIntValue;
-            return ints[key];
+            return defaultIntValue;
         }
         return v;
     }
@@ -123,7 +130,7 @@ public class DataMessenger : MonoBehaviour
         if (!strings.TryGetValue(key, out string v))
         {
             strings[key] = defaultStringValue;
-            return strings[key];
+            return defaultStringValue;
         }
         return v;
     }
@@ -157,7 +164,7 @@ public class DataMessenger : MonoBehaviour
         if (!bools.TryGetValue(key, out bool v))
         {
             bools[key] = defaultBoolValue;
-            return bools[key];
+            return defaultBoolValue;
         }
         return v;
     }
@@ -170,7 +177,7 @@ public class DataMessenger : MonoBehaviour
         if (!vector3s.TryGetValue(key, out Vector3 v))
         {
             vector3s[key] = defaultVector3Value;
-            return vector3s[key];
+            return defaultVector3Value;
         }
         return v;
     }
@@ -182,13 +189,39 @@ public class DataMessenger : MonoBehaviour
     {
         if (!quaternions.TryGetValue(key, out Quaternion v))
         {
-            quaternions[key] = Quaternion.identity;
-            return quaternions[key];
+            quaternions[key] = defaultQuaternionValue;
+            return defaultQuaternionValue;
         }
         return v;
     }
     public static void SetQuaternion(string key, Quaternion value)
     {
         quaternions[key] = value;
+    }
+    public static GameObject GetGameObject(string key)
+    {
+        if (!gameObjects.TryGetValue(key, out GameObject obj))
+        {
+            gameObjects[key] = defaultGameObjectValue;
+            return defaultGameObjectValue;
+        }
+        return obj;
+    }
+    public static void SetGameObject(string key, GameObject obj)
+    {
+         gameObjects[key] = obj;
+    }
+    public static ScriptableObject GetScriptableObject(string key)
+    {
+        if (!scriptableObjects.TryGetValue(key, out ScriptableObject obj))
+        {
+            scriptableObjects[key] = defaultScriptableObjectValue;
+            return defaultScriptableObjectValue;
+        }
+        return obj;
+    }
+    public static void SetScriptableObject(string key, ScriptableObject obj)
+    {
+        scriptableObjects[key] = obj;
     }
 }

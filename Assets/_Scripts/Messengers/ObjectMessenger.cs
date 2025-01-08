@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Allows communication of objects across AssemblyDefinitions
+// DEPRECATED
 public class ObjectMessenger : MonoBehaviour
 {
-    private static Dictionary<string, GameObject> gameObjects;
+    /*private static Dictionary<string, GameObject> gameObjects;
     private static Dictionary<string, ScriptableObject> scriptableObjects;
 
     private void Awake()
@@ -56,5 +57,5 @@ public class ObjectMessenger : MonoBehaviour
         {
             scriptableObjects.Add(key, obj);
         }
-    }
+    }*/
 }

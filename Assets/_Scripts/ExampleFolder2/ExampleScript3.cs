@@ -5,11 +5,13 @@ using UnityEngine;
 public class ExampleScript3 : MonoBehaviour
 {
     [SerializeField] private GameObject objectPrefab;
-    private void Awake()
+    private void Start()
     {
-        ObjectMessenger.SetGameObject("ObjectPrefab", objectPrefab);
+        // ObjectMessenger.SetGameObject("ObjectPrefab", objectPrefab);
+        DataMessenger.SetGameObject("ObjectPrefab", objectPrefab);
         EventMessenger.TriggerEvent("CreateObject");
-        Debug.Log(ObjectMessenger.GetGameObject("ObjectInstance"));
+        // Debug.Log(ObjectMessenger.GetGameObject("ObjectInstance"));
+        Debug.Log(DataMessenger.GetGameObject("ObjectInstance"));
     }
     private void OnEnable()
     {

@@ -16,8 +16,11 @@ public class ExampleScript1 : MonoBehaviour
     }
     private void CreateObject()
     {
-        ObjectMessenger.SetGameObject("ObjectInstance", 
-            Instantiate(ObjectMessenger.GetGameObject("ObjectPrefab"), transform.position, Quaternion.identity));
+        /* Old code
+         * ObjectMessenger.SetGameObject("ObjectInstance", 
+            Instantiate(ObjectMessenger.GetGameObject("ObjectPrefab"), transform.position, Quaternion.identity));*/
+        DataMessenger.SetGameObject("ObjectInstance", 
+            Instantiate(DataMessenger.GetGameObject("ObjectPrefab"), transform.position, Quaternion.identity));
     }
     private void SomeFunction()
     {
