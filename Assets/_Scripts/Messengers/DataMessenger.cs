@@ -172,6 +172,10 @@ public class DataMessenger : MonoBehaviour
     {
         bools[key] = value;
     }
+    public static void ToggleBool(string key)
+    {
+        bools[key] = !bools[key];
+    }
     public static Vector3 GetVector3(string key)
     {
         if (!vector3s.TryGetValue(key, out Vector3 v))
@@ -209,7 +213,7 @@ public class DataMessenger : MonoBehaviour
     }
     public static void SetGameObject(string key, GameObject obj)
     {
-         gameObjects[key] = obj;
+        gameObjects[key] = obj;
     }
     public static ScriptableObject GetScriptableObject(string key)
     {
