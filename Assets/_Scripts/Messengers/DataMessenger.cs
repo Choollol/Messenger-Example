@@ -33,6 +33,7 @@ public class DataMessenger : MonoBehaviour
         gameObjects = new Dictionary<string, GameObject>();
         scriptableObjects = new Dictionary<string, ScriptableObject>();
     }
+    #region Bool
     public static bool GetBool(string key)
     {
         if (!bools.TryGetValue(key, out bool v))
@@ -62,6 +63,17 @@ public class DataMessenger : MonoBehaviour
     {
         ToggleBool(key.ToString());
     }
+    public static IEnumerator WaitForBool(string key, bool doInvert = false)
+    {
+        while (doInvert ? !GetBool(key) : GetBool(key)) yield return null;
+    }
+    public static IEnumerator WaitForBool(BoolKey key, bool doInvert = false)
+    {
+        yield return WaitForBool(key.ToString(), doInvert);
+    }
+    #endregion Bool
+
+    #region Float
     public static float GetFloat(string key)
     {
         if (!floats.TryGetValue(key, out float v))
@@ -109,6 +121,33 @@ public class DataMessenger : MonoBehaviour
     {
         return OperateFloat(key.ToString(), value, op);
     }
+    #endregion Float
+
+    #region GameObject
+    public static GameObject GetGameObject(string key)
+    {
+        if (!gameObjects.TryGetValue(key, out GameObject obj))
+        {
+            gameObjects[key] = default;
+            return gameObjects[key];
+        }
+        return obj;
+    }
+    public static GameObject GetGameObject(GameObjectKey key)
+    {
+        return GetGameObject(key.ToString());
+    }
+    public static void SetGameObject(string key, GameObject obj)
+    {
+        gameObjects[key] = obj;
+    }
+    public static void SetGameObject(GameObjectKey key, GameObject obj)
+    {
+        SetGameObject(key.ToString(), obj);
+    }
+    #endregion GameObject
+
+    #region Int
     public static int GetInt(string key)
     {
         if (!ints.TryGetValue(key, out int v))
@@ -187,6 +226,56 @@ public class DataMessenger : MonoBehaviour
     {
         return OperateInt(key.ToString(), value, op, doRound);
     }
+    #endregion Int
+    #region Quaternion
+    public static Quaternion GetQuaternion(string key)
+    {
+        if (!quaternions.TryGetValue(key, out Quaternion v))
+        {
+            quaternions[key] = DEFAULT_QUATERNION;
+            return quaternions[key];
+        }
+        return v;
+    }
+    public static Quaternion GetQuaternion(QuaternionKey key)
+    {
+        return GetQuaternion(key.ToString());
+    }
+    public static void SetQuaternion(string key, Quaternion value)
+    {
+        quaternions[key] = value;
+    }
+    public static void SetQuaternion(QuaternionKey key, Quaternion value)
+    {
+        SetQuaternion(key.ToString(), value);
+    }
+    #endregion Quaternion
+
+    #region ScriptableObject
+    public static ScriptableObject GetScriptableObject(string key)
+    {
+        if (!scriptableObjects.TryGetValue(key, out ScriptableObject obj))
+        {
+            scriptableObjects[key] = default;
+            return scriptableObjects[key];
+        }
+        return obj;
+    }
+    public static ScriptableObject GetScriptableObject(ScriptableObjectKey key)
+    {
+        return GetScriptableObject(key.ToString());
+    }
+    public static void SetScriptableObject(string key, ScriptableObject obj)
+    {
+        scriptableObjects[key] = obj;
+    }
+    public static void SetScriptableObject(ScriptableObjectKey key, ScriptableObject obj)
+    {
+        SetScriptableObject(key.ToString(), obj);
+    }
+    #endregion ScriptableObject
+
+    #region String
 
     public static string GetString(string key)
     {
@@ -209,6 +298,9 @@ public class DataMessenger : MonoBehaviour
     {
         SetString(key.ToString(), value);
     }
+    #endregion String
+
+    #region StringList
     public static List<string> GetStringList(string key)
     {
         if (!stringLists.TryGetValue(key, out List<string> v))
@@ -232,16 +324,36 @@ public class DataMessenger : MonoBehaviour
     }
     public static void AddStringToList(string key, string value)
     {
-        if (!stringLists.TryGetValue(key, out _))
+        List<string> list;
+        if (!stringLists.TryGetValue(key, out list))
         {
             stringLists[key] = DEFAULT_STRING_LIST;
         }
-        stringLists[key].Add(value);
+        list.Add(value);
     }
     public static void AddStringToList(StringListKey key, string value)
     {
         AddStringToList(key.ToString(), value);
     }
+    /// <returns>Whether the string was removed.</returns>
+    public static bool RemoveStringFromList(string key, string value)
+    {
+        List<string> list;
+        if (!stringLists.TryGetValue(key, out list))
+        {
+            return false;
+        }
+        list.Remove(value);
+        return true;
+    }
+    /// <returns>Whether the string was removed.</returns>
+    public static bool RemoveStringFromList(StringKey key, string value)
+    {
+        return RemoveStringFromList(key.ToString(), value);
+    }
+    #endregion StringList
+
+    #region Vector3
     public static Vector3 GetVector3(string key)
     {
         if (!vector3s.TryGetValue(key, out Vector3 v))
@@ -264,71 +376,9 @@ public class DataMessenger : MonoBehaviour
     {
         SetVector3(key.ToString(), value);
     }
-    public static Quaternion GetQuaternion(string key)
-    {
-        if (!quaternions.TryGetValue(key, out Quaternion v))
-        {
-            quaternions[key] = DEFAULT_QUATERNION;
-            return quaternions[key];
-        }
-        return v;
-    }
-    public static Quaternion GetQuaternion(QuaternionKey key)
-    {
-        return GetQuaternion(key.ToString());
-    }
-    public static void SetQuaternion(string key, Quaternion value)
-    {
-        quaternions[key] = value;
-    }
-    public static void SetQuaternion(QuaternionKey key, Quaternion value)
-    {
-        SetQuaternion(key.ToString(), value);
-    }
-    public static GameObject GetGameObject(string key)
-    {
-        if (!gameObjects.TryGetValue(key, out GameObject obj))
-        {
-            gameObjects[key] = default;
-            return gameObjects[key];
-        }
-        return obj;
-    }
-    public static GameObject GetGameObject(GameObjectKey key)
-    {
-        return GetGameObject(key.ToString());
-    }
-    public static void SetGameObject(string key, GameObject obj)
-    {
-        gameObjects[key] = obj;
-    }
-    public static void SetGameObject(GameObjectKey key, GameObject obj)
-    {
-        SetGameObject(key.ToString(), obj);
-    }
-    public static ScriptableObject GetScriptableObject(string key)
-    {
-        if (!scriptableObjects.TryGetValue(key, out ScriptableObject obj))
-        {
-            scriptableObjects[key] = default;
-            return scriptableObjects[key];
-        }
-        return obj;
-    }
-    public static ScriptableObject GetScriptableObject(ScriptableObjectKey key)
-    {
-        return GetScriptableObject(key.ToString());
-    }
-    public static void SetScriptableObject(string key, ScriptableObject obj)
-    {
-        scriptableObjects[key] = obj;
-    }
-    public static void SetScriptableObject(ScriptableObjectKey key, ScriptableObject obj)
-    {
-        SetScriptableObject(key.ToString(), obj);
-    }
+    #endregion Vector3
 }
-
+#region KeyEnums
 public enum BoolKey
 {
 
@@ -365,3 +415,4 @@ public enum ScriptableObjectKey
 {
 
 }
+#endregion KeyEnums
