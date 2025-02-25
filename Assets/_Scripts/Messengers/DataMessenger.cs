@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 // Allows for communication of data between scripts, decoupling
 public class DataMessenger : MonoBehaviour

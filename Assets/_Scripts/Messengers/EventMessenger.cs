@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using System.Collections;
 using System.Collections.Generic;
 
 // Allows communication of events across AssemblyDefinitions
@@ -10,34 +9,17 @@ public class EventMessenger : MonoBehaviour
     private Dictionary<string, UnityEvent> eventDictionary;
 
     private static EventMessenger instance;
-
-    public static EventMessenger Instance
+    private void Awake()
     {
-        get
+        if (instance != null)
         {
-            if (!instance)
-            {
-                instance = FindObjectOfType(typeof(EventMessenger)) as EventMessenger;
-
-                if (!instance)
-                {
-                    Debug.LogError("There needs to be one active EventMessenger script on a GameObject in your scene.");
-                }
-                else
-                {
-                    instance.Init();
-                }
-            }
-
-            return instance;
+            Debug.LogError("There needs to be one active EventMessenger script on a GameObject in your scene.");
         }
-    }
-
-    void Init()
-    {
-        if (eventDictionary == null)
+        else
         {
             eventDictionary = new Dictionary<string, UnityEvent>();
+
+            instance = this;
         }
     }
 
@@ -50,7 +32,7 @@ public class EventMessenger : MonoBehaviour
     public static void StartListening(string eventName, UnityAction listener)
     {
         UnityEvent thisEvent = null;
-        if (Instance.eventDictionary.TryGetValue(eventName, out thisEvent))
+        if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.AddListener(listener);
         }
@@ -58,7 +40,7 @@ public class EventMessenger : MonoBehaviour
         {
             thisEvent = new UnityEvent();
             thisEvent.AddListener(listener);
-            Instance.eventDictionary.Add(eventName, thisEvent);
+            instance.eventDictionary.Add(eventName, thisEvent);
         }
     }
 
@@ -83,7 +65,7 @@ public class EventMessenger : MonoBehaviour
     {
         if (instance == null) return;
         UnityEvent thisEvent = null;
-        if (Instance.eventDictionary.TryGetValue(eventName, out thisEvent))
+        if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.RemoveListener(listener);
         }
@@ -107,7 +89,7 @@ public class EventMessenger : MonoBehaviour
     public static void TriggerEvent(string eventName)
     {
         UnityEvent thisEvent = null;
-        if (Instance.eventDictionary.TryGetValue(eventName, out thisEvent))
+        if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.Invoke();
         }
