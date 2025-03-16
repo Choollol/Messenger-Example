@@ -2,23 +2,23 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-// Allows communication of events across AssemblyDefinitions
+// Allows communication of events across scripts
 public class EventMessenger : MonoBehaviour
 {
 
-    private Dictionary<string, UnityEvent> eventDictionary;
+    private readonly Dictionary<string, UnityEvent> eventDictionary = new();
 
     private static EventMessenger instance;
+
     private void Awake()
     {
-        if (instance != null)
+        if (instance != null && instance != this)
         {
             Debug.LogError("There needs to be one active EventMessenger script on a GameObject in your scene.");
+            Destroy(gameObject);
         }
         else
         {
-            eventDictionary = new Dictionary<string, UnityEvent>();
-
             instance = this;
         }
     }
@@ -86,14 +86,14 @@ public class EventMessenger : MonoBehaviour
     /// Triggers an event through a given event name. All functions listening to the event will be invoked.
     /// </summary>
     /// <param name="eventName">The name of the event to trigger.</param>
-    public static void TriggerEvent(string eventName)
+    public static void TriggerEvent(string eventName, bool isSilent = false)
     {
         UnityEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.Invoke();
         }
-        else
+        else if (!isSilent)
         {
             Debug.Log("EventMessenger does not contain " + eventName);
         }
@@ -103,13 +103,12 @@ public class EventMessenger : MonoBehaviour
     /// Triggers an event through a given event name. All functions listening to the event will be invoked.
     /// </summary>
     /// <param name="eventName">The name of the event to trigger.</param>
-    public static void TriggerEvent(EventKey eventName)
+    public static void TriggerEvent(EventKey eventName, bool isSilent = false)
     {
-        TriggerEvent(eventName.ToString());
+        TriggerEvent(eventName.ToString(), isSilent);
     }
 }
 
 public enum EventKey
 {
-
 }
