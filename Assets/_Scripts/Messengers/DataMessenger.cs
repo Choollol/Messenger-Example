@@ -69,10 +69,18 @@ public class DataMessenger : MonoBehaviour
     {
         ToggleBool(key.ToString());
     }
+
+    /// <summary>
+    /// Wait for bool to become false. If doInvert, wait for bool to become true.
+    /// </summary>
     public static IEnumerator WaitForBool(string key, bool doInvert = false)
     {
-        while (doInvert ? !GetBool(key) : GetBool(key)) yield return null;
+        while (GetBool(key) ^ doInvert) yield return null;
     }
+
+    /// <summary>
+    /// Wait for bool to become false. If doInvert, wait for bool to become true.
+    /// </summary>
     public static IEnumerator WaitForBool(BoolKey key, bool doInvert = false)
     {
         yield return WaitForBool(key.ToString(), doInvert);

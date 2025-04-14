@@ -107,6 +107,28 @@ public class EventMessenger : MonoBehaviour
     {
         TriggerEvent(eventName.ToString(), isSilent);
     }
+
+    /// <summary>
+    /// Triggers all events in an iterable object
+    /// </summary>
+    public static void TriggerEvents(IEnumerable<EventKey> events)
+    {
+        foreach (EventKey ev in events)
+        {
+            TriggerEvent(ev);
+        }
+    }
+
+    /// <summary>
+    /// Triggers all events in an iterable object
+    /// </summary>
+    public static void TriggerEvents(IEnumerable<string> events)
+    {
+        foreach (string ev in events)
+        {
+            TriggerEvent(ev);
+        }
+    }
 }
 
 public enum EventKey
